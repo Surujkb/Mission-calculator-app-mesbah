@@ -1,0 +1,58 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{ super() }}
+	<style>
+    body { background: #cde4da;
+          font-size:18px;}
+  </style>
+  <link rel="icon" type="image/png" href="static/favicon.png">
+{% endblock %}
+
+
+{% block title %}
+Emissions Record ENE425
+{% endblock %}
+
+{% block content %}
+
+<link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+
+      <h1 class="pt-5 pb-2">Emissions Calculator for ENE425. Group 1 </h1>
+
+      <p class="lead">Welcome {{user_rec}}</p>
+
+      <p></p>
+      <p>Select the records for the type of transport of your choice:</p>
+
+      <ul>
+          {% for s in transport %}
+          <li><a href="{{ url_for( 'inventory', transport=s.transport ) }}">{{ s.transport }}</a></li>
+          {% endfor %}
+      </ul>
+      <p><a href="{{ url_for('inventory_all') }}">Check</a> or <a href="{{ url_for('download') }}">Download</a> <strong>All</strong> records.</p>
+      <p><a href="{{ url_for('add_record') }}">Submit a new record</a>.</p>
+      <p><a href="{{ url_for('select_record') }}">Select a record for editing</a>.</p>
+      <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    </div>
+  </div>
+</div>
+
+<html>
+    <head>
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+      <div class="container">
+        <div class="row d-flex flex-row">
+          <div class="col-lg-6">{{plot_div|safe}}</div>
+          <div class="col-lg-6">{{plot_div_global|safe}}</div>
+        </div>
+      </div>
+    </body>
+</html>
+{% endblock %}

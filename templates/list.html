@@ -1,0 +1,69 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #cde4da; }
+	</style>
+{% endblock %}
+
+
+{% block title %}
+Emissions per Transport List
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row pb-5">
+    <div class="col-md-10 col-lg-10 mx-lg-auto mx-md-auto">
+
+      <h1 class="pt-5 pb-2">List of Transport</h1>
+	
+		{% if transport %}
+
+	  <!-- the form was submitted and message exists -->
+			<p class="lead alert alert-warning">This is a list of all
+			<strong>{{ transport }}</strong> records in inventory.</p>
+
+  		{% else %}
+
+		  <p class="lead alert alert-warning">This is the list of all records in inventory.</p>
+
+  		{% endif %}
+
+	  <p class="ml-4"><a href="{{ url_for('index') }}">Return to the index.</a></p>
+
+		<table class="table">
+			<tr>
+				<th>Kilometers</th>
+				<th>Transport Type</th>
+				<th>Fuel Type</th>
+				<th>Date</th>
+				<th>CO2 kg/passenger km</th>
+				<th>CH4 kg/passenger km</th>
+				<th>User</th>
+				<th>Updated</th>
+			</tr>
+
+			<!-- here is a for-loop to give us all the records -->
+			{% for value in emissions %}
+			<tr>
+				<td>{{ value.kms }}</td>
+				<td>{{ value.transport }}</td>
+				<td>{{ value.fuel }}</td>
+				<td>{{ value.date }}</td>
+				<td>{{ value.co2 }}</td>
+				<td>{{ value.ch4 }}</td>
+				<td>{{ value.user_name }}</td>
+				<td>{{ value.updated }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

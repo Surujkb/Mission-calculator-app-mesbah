@@ -1,0 +1,81 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #cde4da; }
+		ul { display: flex; }
+	</style>
+{% endblock %}
+
+
+{% block title %}
+Select a Record
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row pb-5">
+    <div class="col-lg-12 mx-lg-auto">
+
+      <h1 class="pt-5 pb-2">Select a Record</h1>
+
+      <p class="lead alert alert-success">Select one record to edit or delete.</p>
+
+	  <p class="ml-4"><a href="{{ url_for('index') }}">Return to the index.</a></p>
+
+	  <!-- start form - not using WTForms here -->
+	  <form method="POST" id="form2" action="{{ url_for('edit_or_delete') }}">
+
+		<table class="table">
+			<tr>
+				<th></th>
+				<th>Kilometers</th>
+				<th>Transport Type</th>
+				<th>Fuel Type</th>
+				<th>Date</th>
+				<th>CO2 kg/passenger km</th>
+				<th>CH4 kg/passenger km</th>
+				<th>User</th>
+				<th>Updated</th>
+			</tr>
+
+			<!-- here is a for-loop to give us all the socks -->
+			{% for value in emissions %}
+			<tr>
+				<td class="center-align"><input type="radio" name="id" value="{{ value.id }}" required></td>
+				<td>{{ value.kms }}</td>
+				<td>{{ value.transport }}</td>
+				<td>{{ value.fuel }}</td>
+				<td>{{ value.date }}</td>
+				<td>{{ value.co2 }}</td>
+				<td>{{ value.ch4 }}</td>
+				<td>{{ value.user_name }}</td>
+				<td>{{ value.updated }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+
+		<div class="form-group lead alert alert-success pb-4">
+          <p>What do you want to do with the selected record?</p>
+
+          <div class="form-check form-check-inline">
+          <label class="form-check-label"><input class="form-check-input" type="radio" name="choice" value="delete" required> Delete it</label>
+          </div>
+          <div class="form-check form-check-inline">
+          <label class="form-check-label"><input class="form-check-input" type="radio" name="choice" value="edit" required> Edit it</label>
+          </div>
+        </div><!-- end form-group -->
+
+		<div class="form-group">
+	        <input class="btn btn-success" type="submit" value="Submit Choice">
+        </div>
+
+		</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

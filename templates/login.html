@@ -1,0 +1,46 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #cde4da; }
+	</style>
+{% endblock %}
+
+
+{% block title %}
+Login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="row pb-5">
+		<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+
+		<h1 class="pt-5 pb-2">Login</h1>
+		{% if message %}
+			<p class="lead alert alert-danger">{{ message }}</p>
+			<form method="POST">
+				{{ formlog.csrf_token }}
+				{{ wtf.form_field(formlog.user) }}
+				{{ wtf.form_field(formlog.password)}}
+				{{ wtf.form_field(formlog.submit)}}
+			</form>
+		{% else %}
+			<form method="POST">
+				{{ formlog.csrf_token }}
+				{{ wtf.form_field(formlog.user) }}
+				{{ wtf.form_field(formlog.password)}}
+				{{ wtf.form_field(formlog.submit)}}
+			</form>
+		{% endif %}
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
